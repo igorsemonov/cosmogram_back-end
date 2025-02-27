@@ -8,7 +8,6 @@ fs.writeFile('photos.txt', JSON.stringify(photos, null, 2), err => {
         res.writeHead(500);
         return res.end(JSON.stringify({error: 'Server error'}));
     };
-    console.log('Files has been saved');
 });
 
 const server = http.createServer((req, res) => {
@@ -16,8 +15,7 @@ const server = http.createServer((req, res) => {
 
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");    
     res.setHeader('Content-Type', 'application/json');
 
     if (method === "OPTIONS") {
@@ -43,8 +41,7 @@ const server = http.createServer((req, res) => {
                 if(err){
                     res.writeHead(500);
                     return res.end(JSON.stringify({error: 'Server error'}));
-                }
-                console.log('Files has been saved');
+                };
             })
             res.writeHead(201);
             res.end(JSON.stringify(newItem));
