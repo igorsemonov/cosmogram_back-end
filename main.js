@@ -3,13 +3,6 @@ const http = require('http');
 const fs = require('fs');
 const {photos} = require('./variables.js');
 
-fs.writeFile('photos.txt', JSON.stringify(photos, null, 2), err => {
-    if(err){
-        res.writeHead(500);
-        return res.end(JSON.stringify({error: 'Server error'}));
-    };
-});
-
 const server = http.createServer((req, res) => {
     const {method, url} = req;
 
@@ -23,6 +16,12 @@ const server = http.createServer((req, res) => {
     };
 
     if (method === 'GET' && url === '/photos'){
+        fs.writeFile('photos.txt', JSON.stringify(photos, null, 2), err => {
+            if(err){
+                res.writeHead(500);
+                return res.end(JSON.stringify({error: 'Server error'}));
+            };
+        });
         res.writeHead(200);
         res.end(JSON.stringify(photos));
     }
